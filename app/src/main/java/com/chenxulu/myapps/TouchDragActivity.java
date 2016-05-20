@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -28,10 +29,10 @@ public class TouchDragActivity extends AppCompatActivity implements View.OnTouch
         displayWidth = getResources().getDisplayMetrics().widthPixels;
         displayHeight = getResources().getDisplayMetrics().heightPixels;
 
-        listView = (ListView)findViewById(R.id.list_view);
-        ArrayList<Integer> list = new ArrayList<>();
+        listView = (ListView) findViewById(R.id.list_view);
+        ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            list.add(i);
+            list.add(i + "");
         }
         listView.setAdapter(new MyAdapter(list));
 
@@ -65,7 +66,6 @@ public class TouchDragActivity extends AppCompatActivity implements View.OnTouch
                 int bottom = (int) (v.getBottom() + dy);
                 System.out.println(">>>>>>" + displayWidth + "-" + displayHeight);
                 System.out.println(">>>>>>" + left + "-" + right + "-" + top + "-" + bottom);
-
                 if (left > 0 && right < displayWidth && top > 0 && bottom < displayHeight) {
                     v.layout(left, top, right, bottom);
                 }

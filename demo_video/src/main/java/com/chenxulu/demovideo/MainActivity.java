@@ -3,19 +3,11 @@ package com.chenxulu.demovideo;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.chenxulu.mywidgets.MyAlertDialog;
 
 import java.util.ArrayList;
 

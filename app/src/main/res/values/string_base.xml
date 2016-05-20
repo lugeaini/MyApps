@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 录音 -->
+    <string name="record_success">录音成功</string>
+    <string name="record_failure">录音失败</string>
+</resources>

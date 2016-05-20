@@ -12,9 +12,9 @@ import java.util.ArrayList;
  * Created by xulu on 16/5/12.
  */
 public class MyAdapter extends BaseAdapter {
-    private ArrayList<Integer> list;
+    private ArrayList<String> list;
 
-    public MyAdapter(ArrayList<Integer> list) {
+    public MyAdapter(ArrayList<String> list) {
         this.list = list;
     }
 
@@ -38,11 +38,11 @@ public class MyAdapter extends BaseAdapter {
         if (view == null) {
             view = new TextView(viewGroup.getContext());
             int width = view.getResources().getDisplayMetrics().widthPixels;
-            int height = width / 2;
+            int height = width / 4;
             AbsListView.LayoutParams params = new AbsListView.LayoutParams(width, height);
             view.setLayoutParams(params);
         }
-        ((TextView) view).setText(list.get(i) + "");
+        ((TextView) view).setText(list.get(i));
         return view;
     }
 }
