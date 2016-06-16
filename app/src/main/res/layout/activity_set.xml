@@ -65,7 +65,6 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/my_set_item_top_selector"
             app:checkbox_background="@drawable/icon_checkbox_selector"
-            app:checkbox_visible="true"
             app:left_image="@mipmap/ic_launcher"
             app:left_txt="top"
             app:right_image_visible="false" />
@@ -75,7 +74,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/my_set_item_bottom_selector"
             app:checkbox_background="@drawable/icon_checkbox_selector"
-            app:checkbox_visible="true"
             app:left_image="@mipmap/ic_launcher"
             app:left_txt="bottom"
             app:right_image_visible="false" />
