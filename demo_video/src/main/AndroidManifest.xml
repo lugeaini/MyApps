@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TouchDragActivity"
+            android:name=".demo.TouchDragActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
 
         </activity>

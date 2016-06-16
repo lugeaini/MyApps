@@ -127,6 +127,7 @@ public class MyVideoController implements AbsListView.OnScrollListener, MyVideoL
         layoutParams.height = RelativeLayout.LayoutParams.MATCH_PARENT;
         layoutParams.setMargins(0, 0, 0, 0);
         myVideoLayout.setLayoutParams(layoutParams);
+        myVideoLayout.setScreenType(MyVideoLayout.SCREEN_FULL);
     }
 
     /**
@@ -138,8 +139,8 @@ public class MyVideoController implements AbsListView.OnScrollListener, MyVideoL
         layoutParams.width = displayWidth;
         layoutParams.height = (int) (layoutParams.width / VIDEO_SCALE);
         layoutParams.topMargin = headLayout.getTop() + hideView.getTop() + listView.getTop();
-        myVideoLayout.setScreenSmall(false);
         myVideoLayout.setLayoutParams(layoutParams);
+        myVideoLayout.setScreenType(MyVideoLayout.SCREEN_DEFAULT);
     }
 
     /**
@@ -151,8 +152,8 @@ public class MyVideoController implements AbsListView.OnScrollListener, MyVideoL
         layoutParams.width = displayWidth / 2;
         layoutParams.height = (int) (layoutParams.width / VIDEO_SCALE);
         layoutParams.topMargin = listView.getTop();
-        myVideoLayout.setScreenSmall(true);
         myVideoLayout.setLayoutParams(layoutParams);
+        myVideoLayout.setScreenType(MyVideoLayout.SCREEN_SMALL);
     }
 
     /**
@@ -164,8 +165,8 @@ public class MyVideoController implements AbsListView.OnScrollListener, MyVideoL
 
     @Override
     public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        //System.out.println(headLayout.getTop() + "-" + hideView.getBottom() + "-" + hideView.getTop() + "-" + listView.getTop());
-        if (screenType != SCREEN_FULL || myVideoLayout.getVisibility() == View.VISIBLE) {
+        System.out.println("onScroll()" + headLayout.getTop() + "-" + hideView.getBottom() + "-" + hideView.getTop() + "-" + listView.getTop());
+        if (screenType != SCREEN_FULL && myVideoLayout.getVisibility() == View.VISIBLE) {
             if (isSmallScreen()) {
                 if (screenType != SCREEN_SMALL) {
                     setSmallScreen();
@@ -236,9 +237,6 @@ public class MyVideoController implements AbsListView.OnScrollListener, MyVideoL
 
     @Override
     public void closeOnClick() {
-        if (screenType == SCREEN_FULL) {
-            //
-        }
         screenType = SCREEN_DEFAULT;
         myVideoLayout.stop();
         myVideoLayout.setVisibility(View.GONE);
