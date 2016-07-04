@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- TopBar -->
-    <declare-styleable name="TopBar">
-        <attr name="titleStr" format="string" />
-        <attr name="leftBackground" format="integer" />
-        <attr name="leftVisible" format="boolean" />
-        <attr name="leftText" format="string" />
-        <attr name="rightBackground" format="integer" />
-        <attr name="rightVisible" format="boolean" />
-        <attr name="rightText" format="string" />
-    </declare-styleable>
-
     <!-- MySetItemView -->
     <declare-styleable name="MySetItemView">
         <attr name="left_txt" format="string" />
         <attr name="right_txt" format="string" />
         <attr name="left_image" format="integer" />
         <attr name="right_image_visible" format="boolean"/>
-        <attr name="checkbox_background" format="boolean"/>
+        <attr name="checkbox_visible" format="boolean"/>
     </declare-styleable>
 
     <!-- 页面下的小数点 -->

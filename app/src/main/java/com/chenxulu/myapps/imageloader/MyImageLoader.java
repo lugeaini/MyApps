@@ -8,24 +8,28 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.DisplayImageOptions.Builder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+
+import java.io.File;
+
+import okhttp3.OkHttpClient;
 
 public class MyImageLoader {
     private static MyImageLoader instance;
+    private OkHttpClient okHttpClient;
 
     private MyImageLoader() {
-
+        okHttpClient = new OkHttpClient();
     }
 
     public static MyImageLoader getInstance() {
@@ -40,48 +44,52 @@ public class MyImageLoader {
     }
 
     /**
+     * 下载图片
+     *
      * @param uriStr
      * @param imageView
      */
-    public void download(String uriStr, ImageView imageView) {
-        download(uriStr, imageView, null, null, null);
+    public void download(ImageView imageView, String uriStr) {
+        download(imageView, uriStr, null);
     }
 
     /**
+     * 下载图片
+     *
      * @param uriStr
      * @param imageView
-     * @param builder
+     * @param options
+     */
+    public void download(ImageView imageView, String uriStr, MyImageOptions options) {
+        download(imageView, uriStr, options, null, null);
+    }
+
+    /**
+     * 下载图片
+     *
+     * @param uriStr
+     * @param imageView
+     * @param options
      * @param imageLoadingListener
      * @param progressListener
      */
-    public void download(String uriStr, ImageView imageView, Builder builder,
+    public void download(ImageView imageView, String uriStr, MyImageOptions options,
                          MyImageLoadingListener imageLoadingListener,
                          MyImageLoadingProgressListener progressListener) {
         if (!TextUtils.isEmpty(uriStr)) {
-            if (!uriStr.contains("http://") && !uriStr.contains("content://") &&
+            if (!uriStr.contains("http://") && !uriStr.contains("https://") && !uriStr.contains("content://") &&
                     !uriStr.contains("assets://") && !uriStr.contains("drawable://")) {
                 uriStr = "file:///" + uriStr;
             }
         }
-        if (builder == null) {
-            builder = getDefaultBuilder();
-        }
 
-        ImageLoader.getInstance().displayImage(uriStr, imageView, builder.build(),
-                imageLoadingListener, progressListener);
-    }
-
-    public static DisplayImageOptions.Builder getDefaultBuilder() {
-        return new DisplayImageOptions.Builder()
+        DisplayImageOptions.Builder builder = new DisplayImageOptions.Builder()
                 // default false
                 .resetViewBeforeLoading(false)
                 // default true
                 .cacheInMemory(true)
                 // default true
                 .cacheOnDisk(true)
-                .preProcessor(null)
-                .postProcessor(null)
-                .extraForDownloader(null)
                 .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
                 // default
                 .bitmapConfig(Bitmap.Config.ARGB_8888)
@@ -89,9 +97,25 @@ public class MyImageLoader {
                 .displayer(new SimpleBitmapDisplayer())
                 // default
                 .handler(new Handler());
+
+        if (options != null) {
+            builder.showImageForEmptyUri(options.getImageResForEmptyUri());
+            builder.showImageOnLoading(options.getImageResOnLoading());
+            builder.showImageOnFail(options.getImageResOnFail());
+            builder.displayer(options.isRounded() ? new RoundedBitmapDisplayer(2) : new SimpleBitmapDisplayer());
+        }
+
+        ImageLoader.getInstance().displayImage(uriStr, imageView, builder.build(),
+                imageLoadingListener, progressListener);
     }
 
-    public void initImageLoader(Context context, String cachePath) {
+    /**
+     * init image loader
+     *
+     * @param context
+     * @param cachePath
+     */
+    public void initImageLoader(Context context, File cachePath) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyDialog().build());
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
@@ -99,7 +123,9 @@ public class MyImageLoader {
 
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
         // default = device screen dimensions
-        config.memoryCacheExtraOptions(480, 800);
+        int width = context.getResources().getDisplayMetrics().widthPixels;
+        int height = context.getResources().getDisplayMetrics().heightPixels;
+        config.memoryCacheExtraOptions(width, height);
         //
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         //
@@ -117,27 +143,24 @@ public class MyImageLoader {
         //
         config.denyCacheImageMultipleSizesInMemory();
         //
-        config.diskCacheSize(50 * 1024 * 1024);
+        config.diskCacheSize(100 * 1024 * 1024);
         //
-        config.memoryCache(new LruMemoryCache(2 * 1024 * 1024));
+        config.diskCache(new UnlimitedDiskCache(cachePath, StorageUtils.getCacheDirectory(context)));
+        //
+        config.memoryCache(new LruMemoryCache(10 * 1024 * 1024));
         // default
         config.memoryCacheSizePercentage(13);
         // default
-        config.imageDownloader(new BaseImageDownloader(context));
+        config.imageDownloader(new OkHttpImageDownloader(context, okHttpClient));
         // default
         config.defaultDisplayImageOptions(DisplayImageOptions.createSimple());
         ImageLoader.getInstance().init(config.build());
     }
 
+    /**
+     * 关闭，并清理内存
+     */
     public void close() {
         ImageLoader.getInstance().clearMemoryCache();
-    }
-
-    public interface MyImageLoadingListener extends ImageLoadingListener {
-
-    }
-
-    public interface MyImageLoadingProgressListener extends ImageLoadingProgressListener {
-
     }
 }

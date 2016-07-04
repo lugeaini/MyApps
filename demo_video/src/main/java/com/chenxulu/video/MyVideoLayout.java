@@ -1,4 +1,4 @@
-package com.chenxulu.demovideo;
+package com.chenxulu.video;
 
 import android.content.Context;
 import android.media.MediaPlayer;

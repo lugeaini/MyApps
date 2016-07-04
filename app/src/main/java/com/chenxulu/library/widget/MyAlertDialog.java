@@ -62,11 +62,11 @@ public class MyAlertDialog {
      * @param title
      */
     public void setTitle(CharSequence title) {
-        if (TextUtils.isEmpty(title)) {
-            return;
+        if (!TextUtils.isEmpty(title)) {
+            titleTxt.setVisibility(View.VISIBLE);
+            titleTxt.setText(title);
         }
-        titleTxt.setVisibility(View.VISIBLE);
-        titleTxt.setText(title);
+
     }
 
     /**
@@ -75,11 +75,11 @@ public class MyAlertDialog {
      * @param message
      */
     public void setMessage(CharSequence message) {
-        if (TextUtils.isEmpty(message)) {
-            return;
+        if (!TextUtils.isEmpty(message)) {
+            messageTxt.setVisibility(View.VISIBLE);
+            messageTxt.setText(message);
         }
-        messageTxt.setVisibility(View.VISIBLE);
-        messageTxt.setText(message);
+
     }
 
     /**

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="#f6f6f6"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/my_set_item_single_selector"
-            app:left_image="@mipmap/ic_launcher"
+            app:left_image="@drawable/icon_set"
             app:left_txt="single"
             app:right_txt="content" />
 
@@ -25,17 +26,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/my_set_item_top_selector"
-            app:left_image="@mipmap/ic_launcher"
+            app:left_image="@drawable/icon_set"
             app:left_txt="top"
             app:right_txt="content" />
+
 
         <com.chenxulu.library.widget.MySetItemView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/my_set_item_bottom_selector"
-            app:left_image="@mipmap/ic_launcher"
-            app:left_txt="bottom"
-            app:right_txt="content" />
+            app:left_image="@drawable/icon_set"
+            app:left_txt="bottom bottom"
+            app:right_txt="content content" />
 
         <com.chenxulu.library.widget.MySetItemView
             android:layout_width="match_parent"
@@ -64,18 +66,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/my_set_item_top_selector"
-            app:checkbox_background="@drawable/icon_checkbox_selector"
-            app:left_image="@mipmap/ic_launcher"
+            app:checkbox_visible="true"
+            app:left_image="@drawable/icon_set"
             app:left_txt="top"
             app:right_image_visible="false" />
 
         <com.chenxulu.library.widget.MySetItemView
+            android:id="@+id/item8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/my_set_item_bottom_selector"
-            app:checkbox_background="@drawable/icon_checkbox_selector"
-            app:left_image="@mipmap/ic_launcher"
-            app:left_txt="bottom"
+            app:checkbox_visible="true"
+            app:left_image="@drawable/icon_set"
+            app:left_txt="bottom8"
             app:right_image_visible="false" />
 
     </LinearLayout>

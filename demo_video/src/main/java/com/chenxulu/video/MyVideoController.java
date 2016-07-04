@@ -1,4 +1,4 @@
-package com.chenxulu.demovideo;
+package com.chenxulu.video;
 
 import android.view.MotionEvent;
 import android.view.View;

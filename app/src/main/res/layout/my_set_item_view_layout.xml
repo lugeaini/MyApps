@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:background="@android:color/transparent"
     android:gravity="center_vertical"
-    android:minHeight="56dp"
+    android:minHeight="54dp"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/left_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginRight="10dp"
+        android:src="@drawable/icon_set"
         android:layout_weight="0" />
 
     <TextView
@@ -20,9 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text=""
+        android:paddingLeft="1.5dp"
+        android:text="left_txt left_txt left_txt left_txt left_txt"
         android:textColor="@android:color/black"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/right_txt"
@@ -30,12 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_weight="0"
-        android:ellipsize="middle"
-        android:maxLines="1"
-        android:maxWidth="150dp"
-        android:text=""
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:maxWidth="120dp"
+        android:text="right_txt right_txt right_txt right_txt right_txt"
         android:textColor="@android:color/black"
-        android:textSize="16dp" />
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/right_image"
@@ -43,8 +44,7 @@
         android:layout_height="15dp"
         android:layout_marginLeft="10dp"
         android:layout_weight="0"
-        android:src="@drawable/icon_arrow_right"
-        android:visibility="gone" />
+        android:src="@drawable/icon_arrow_right" />
 
     <CheckBox
         android:id="@+id/checkbox"
@@ -52,6 +52,6 @@
         android:layout_height="30dp"
         android:layout_weight="0"
         android:button="@null"
-        android:visibility="visible"
+        android:visibility="gone"
         android:background="@drawable/icon_checkbox_selector"/>
 </LinearLayout>

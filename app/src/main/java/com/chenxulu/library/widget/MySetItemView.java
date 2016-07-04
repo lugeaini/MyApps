@@ -40,7 +40,7 @@ public class MySetItemView extends FrameLayout {
         String rightStr = ta.getString(R.styleable.MySetItemView_right_txt);
         int leftResId = ta.getResourceId(R.styleable.MySetItemView_left_image, 0);
         boolean rightImageVisible = ta.getBoolean(R.styleable.MySetItemView_right_image_visible, true);
-        int checkBoxBackground = ta.getResourceId(R.styleable.MySetItemView_checkbox_background, 0);
+        boolean checkBoxVisible = ta.getBoolean(R.styleable.MySetItemView_checkbox_visible, false);
         ta.recycle();
 
         mLayout = LayoutInflater.from(context).inflate(R.layout.my_set_item_view_layout, null);
@@ -55,13 +55,7 @@ public class MySetItemView extends FrameLayout {
         setLeftTxt(leftStr);
         setRightTxt(rightStr);
         rightImage.setVisibility(rightImageVisible ? VISIBLE : GONE);
-
-        if (checkBoxBackground != 0) {
-            checkBox.setVisibility(VISIBLE);
-            checkBox.setBackgroundResource(checkBoxBackground);
-        } else {
-            checkBox.setVisibility(GONE);
-        }
+        checkBox.setVisibility(checkBoxVisible ? VISIBLE : GONE);
 
         setClickable(true);
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chenxulu.demovideo">
+    package="com.chenxulu.video">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -18,11 +18,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".demo.TouchDragActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize">
-
         </activity>
     </application>
 
