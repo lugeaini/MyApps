@@ -10,12 +10,6 @@ import android.util.Log;
  * Created by xulu on 16/5/24.
  */
 public class BaseLibraryAppCompatActivity extends AppCompatActivity {
-    /**
-     * 本类中log输出函数，tag为类名
-     */
-    protected void log(String message) {
-        Log.d(getClass().getSimpleName(), message);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,5 +90,12 @@ public class BaseLibraryAppCompatActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         log("onSaveInstanceState()");
+    }
+
+    /**
+     * 本类中log输出函数，tag为类名
+     */
+    protected void log(String message) {
+        Log.d(getClass().getSimpleName(), message);
     }
 }

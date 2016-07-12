@@ -18,7 +18,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".demo1.Demo1Activity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".demo2.Demo2Activity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+
     </application>
 
 </manifest>

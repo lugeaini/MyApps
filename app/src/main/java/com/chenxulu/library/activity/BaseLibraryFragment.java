@@ -11,14 +11,8 @@ import android.view.ViewGroup;
 public abstract class BaseLibraryFragment extends Fragment {
     protected View mView;
 
-    protected void log(String message) {
-        Log.d(getClass().getSimpleName(), message);
-    }
-
     /**
      * called to do initial creation of the fragment.
-     *
-     * @see android.support.v4.app.Fragment#onCreate(android.os.Bundle)
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,9 +22,6 @@ public abstract class BaseLibraryFragment extends Fragment {
 
     /**
      * creates and returns the view hierarchy associated with the fragment.
-     *
-     * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
-     * android.view.ViewGroup, android.os.Bundle)
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,9 +48,7 @@ public abstract class BaseLibraryFragment extends Fragment {
 
     /**
      * tells the fragment that its activity has completed its own
-     * Activity.onCreaate.
-     *
-     * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+     * Activity.onCreate().
      */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -70,8 +59,6 @@ public abstract class BaseLibraryFragment extends Fragment {
     /**
      * makes the fragment visible to the user (based on its containing activity
      * being started).
-     *
-     * @see android.support.v4.app.Fragment#onStart()
      */
     @Override
     public void onStart() {
@@ -83,8 +70,6 @@ public abstract class BaseLibraryFragment extends Fragment {
      * makes the fragment interacting with the user (based on its containing
      * activity being resumed). As a fragment is no longer being used, it goes
      * through a reverse series of callbacks:
-     *
-     * @see android.support.v4.app.Fragment#onResume()
      */
     @Override
     public void onResume() {
@@ -98,8 +83,6 @@ public abstract class BaseLibraryFragment extends Fragment {
      * fragment is no longer interacting with the user either because its
      * activity is being paused or a fragment operation is modifying it in the
      * activity.
-     *
-     * @see android.support.v4.app.Fragment#onPause()
      */
     @Override
     public void onPause() {
@@ -110,8 +93,6 @@ public abstract class BaseLibraryFragment extends Fragment {
     /**
      * fragment is no longer visible to the user either because its activity is
      * being stopped or a fragment operation is modifying it in the activity.
-     *
-     * @see android.support.v4.app.Fragment#onStop()
      */
     @Override
     public void onStop() {
@@ -121,8 +102,6 @@ public abstract class BaseLibraryFragment extends Fragment {
 
     /**
      * allows the fragment to clean up resources associated with its View.
-     *
-     * @see android.support.v4.app.Fragment#onDestroyView()
      */
     @Override
     public void onDestroyView() {
@@ -133,8 +112,6 @@ public abstract class BaseLibraryFragment extends Fragment {
     /**
      * called immediately prior to the fragment no longer being associated with
      * its activity.
-     *
-     * @see android.support.v4.app.Fragment#onDetach()
      */
     @Override
     public void onDetach() {
@@ -144,8 +121,6 @@ public abstract class BaseLibraryFragment extends Fragment {
 
     /**
      * called to do final cleanup of the fragment's state.
-     *
-     * @see android.support.v4.app.Fragment#onDestroy()
      */
     @Override
     public void onDestroy() {
@@ -153,9 +128,6 @@ public abstract class BaseLibraryFragment extends Fragment {
         log("onDestroy()");
     }
 
-    /**
-     * @see android.support.v4.app.Fragment#onHiddenChanged(boolean)
-     */
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -163,9 +135,6 @@ public abstract class BaseLibraryFragment extends Fragment {
     }
 
 
-    /**
-     * @see android.support.v4.app.Fragment#onSaveInstanceState(Bundle)
-     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -176,6 +145,10 @@ public abstract class BaseLibraryFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         log(String.format("onActivityResult(requestCode=%d, resultCode=%d)", requestCode, resultCode));
+    }
+
+    protected void log(String message) {
+        Log.d(getClass().getSimpleName(), message);
     }
 
 }

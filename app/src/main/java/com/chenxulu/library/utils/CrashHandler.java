@@ -15,7 +15,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-import com.chenxulu.library.activity.BaseCrashActivity;
+import com.chenxulu.library.activity.CrashActivity;
 
 public class CrashHandler implements UncaughtExceptionHandler {
 
@@ -60,7 +60,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 
 		stringBuilder.append(errorinfo);
 
-		Intent intent = new Intent(context, BaseCrashActivity.class);
+		Intent intent = new Intent(context, CrashActivity.class);
 		intent.putExtra("crash_info", stringBuilder.toString());
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(intent);

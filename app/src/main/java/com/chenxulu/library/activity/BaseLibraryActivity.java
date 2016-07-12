@@ -11,13 +11,6 @@ import android.util.Log;
  */
 public class BaseLibraryActivity extends Activity {
 
-    /**
-     * 本类中log输出函数，tag为类名
-     */
-    protected void log(String message) {
-        Log.d(getClass().getSimpleName(), message);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +90,13 @@ public class BaseLibraryActivity extends Activity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         log("onSaveInstanceState()");
+    }
+
+    /**
+     * 本类中log输出函数，tag为类名
+     */
+    protected void log(String message) {
+        Log.d(getClass().getSimpleName(), message);
     }
 
 }

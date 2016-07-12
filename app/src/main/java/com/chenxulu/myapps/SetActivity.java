@@ -8,13 +8,6 @@ import android.widget.CompoundButton;
 import com.chenxulu.library.widget.MySetItemView;
 
 public class SetActivity extends AppCompatActivity {
-    private MySetItemView itemView1;
-    private MySetItemView itemView2;
-    private MySetItemView itemView3;
-    private MySetItemView itemView4;
-    private MySetItemView itemView5;
-    private MySetItemView itemView6;
-    private MySetItemView itemView7;
     private MySetItemView itemView8;
 
     @Override

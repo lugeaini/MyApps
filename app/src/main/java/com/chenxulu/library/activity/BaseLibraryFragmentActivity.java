@@ -7,13 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 public class BaseLibraryFragmentActivity extends FragmentActivity {
-    /**
-     * 本类中log输出函数，tag为类名
-     */
-    protected void log(String message) {
-        Log.d(getClass().getSimpleName(), message);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,4 +88,10 @@ public class BaseLibraryFragmentActivity extends FragmentActivity {
         log("onSaveInstanceState()");
     }
 
+    /**
+     * 本类中log输出函数，tag为类名
+     */
+    protected void log(String message) {
+        Log.d(getClass().getSimpleName(), message);
+    }
 }
