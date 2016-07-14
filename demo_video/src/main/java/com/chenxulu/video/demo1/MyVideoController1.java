@@ -221,7 +221,11 @@ public class MyVideoController1 implements AbsListView.OnScrollListener, MyVideo
                 System.out.println(">>>>>>" + left + "-" + right + "-" + top + "-" + bottom);
 
                 if (left > 0 && right < displayWidth && top > listView.getTop() && bottom < displayHeight) {
-                    v.layout(left, top, right, bottom);
+                    //v.layout(left, top, right, bottom);
+                    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) myVideoLayout.getLayoutParams();
+                    layoutParams.topMargin += dy;
+                    layoutParams.leftMargin += dx;
+                    myVideoLayout.setLayoutParams(layoutParams);
                 }
                 break;
             case MotionEvent.ACTION_UP:

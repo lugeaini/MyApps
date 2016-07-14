@@ -32,7 +32,7 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
     private View layout;
     private ImageView closeView;
     private ImageView playView;
-    private VideoView videoView;
+    private MyVideoView videoView;
 
     private View bottomLayout;
     private SeekBar seekBar;
@@ -78,7 +78,7 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
         fullScreenView = (ImageView) layout.findViewById(R.id.full_screen_view);
         fullScreenView.setOnClickListener(this);
 
-        videoView = (VideoView) layout.findViewById(R.id.video_view);
+        videoView = (MyVideoView) layout.findViewById(R.id.video_view);
         videoView.setOnErrorListener(this);
         videoView.setOnCompletionListener(this);
         videoView.setOnPreparedListener(this);
@@ -148,7 +148,6 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
             videoView.setVideoPath(videoPath);
             videoView.requestFocus();
             videoView.start();
-            videoView.resume();
             videoState = VIDEO_STATE_PREPARE;
 
             prepareLayout.setVisibility(VISIBLE);
