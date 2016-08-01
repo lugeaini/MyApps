@@ -3,7 +3,7 @@
     <item android:id="@android:id/background">
         <shape android:shape="line">
             <stroke
-                android:width="2.0dip"
+                android:width="1.0dip"
                 android:color="@color/seek_progress_first" />
         </shape>
     </item>
@@ -11,7 +11,7 @@
         <clip>
             <shape android:shape="line">
                 <stroke
-                    android:width="2.0dip"
+                    android:width="1.0dip"
                     android:color="@color/seek_progress_second" />
             </shape>
         </clip>
@@ -20,7 +20,7 @@
         <clip>
             <shape android:shape="line">
                 <stroke
-                    android:width="2.0dip"
+                    android:width="1.0dip"
                     android:color="@color/seek_progress_bg" />
             </shape>
         </clip>

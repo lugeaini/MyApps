@@ -21,9 +21,4 @@ public class MyVideoView extends VideoView {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    public void resume() {
-        super.resume();
-        System.out.println("resume");
-    }
 }

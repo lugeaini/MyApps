@@ -14,12 +14,13 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.chenxulu.video.R;
+import com.chenxulu.video.util.TimeUtil;
 
 /**
  * Created by xulu on 16/5/6.
  */
 public class MyVideoLayout extends FrameLayout implements View.OnClickListener, MediaPlayer.OnPreparedListener,
-        MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, CustomMediaController.HideCallBack {
+        MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, CustomMediaController.HideCallBack {
     private static final int VIDEO_STATE_IDLE = 0;
     private static final int VIDEO_STATE_PREPARE = 1;
     private static final int VIDEO_STATE_PLAYING = 2;
@@ -29,10 +30,9 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
     public static final int SCREEN_SMALL = 1;
     public static final int SCREEN_FULL = 2;
 
-    private View layout;
     private ImageView closeView;
     private ImageView playView;
-    private MyVideoView videoView;
+    private VideoView videoView;
 
     private View bottomLayout;
     private SeekBar seekBar;
@@ -43,18 +43,17 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
 
     private String videoPath;
     private int videoState;
-    private MyVideoLayoutListener mListener;
-
     private int screenType;
 
+    private MyVideoLayoutListener mListener;
+    private CustomMediaController mediaController;
+
     public MyVideoLayout(Context context) {
-        super(context);
-        initView();
+        this(context, null);
     }
 
     public MyVideoLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        initView();
+        this(context, null, 0);
     }
 
     public MyVideoLayout(Context context, AttributeSet attrs, int defStyle) {
@@ -63,47 +62,35 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
     }
 
     private void initView() {
-        layout = LayoutInflater.from(getContext()).inflate(R.layout.layout_video, null);
+        LayoutInflater.from(getContext()).inflate(R.layout.layout_video, this);
 
-        addView(layout);
-        closeView = (ImageView) layout.findViewById(R.id.close_view);
+        closeView = (ImageView) findViewById(R.id.close_view);
         closeView.setOnClickListener(this);
-        playView = (ImageView) layout.findViewById(R.id.play_view);
+
+        playView = (ImageView) findViewById(R.id.play_view);
         playView.setOnClickListener(this);
 
-        bottomLayout = layout.findViewById(R.id.bottom_layout);
-        seekBar = (SeekBar) layout.findViewById(R.id.progress_view);
-        seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
-        timeTxt = (TextView) layout.findViewById(R.id.time);
-        fullScreenView = (ImageView) layout.findViewById(R.id.full_screen_view);
+        fullScreenView = (ImageView) findViewById(R.id.full_screen_view);
         fullScreenView.setOnClickListener(this);
 
-        videoView = (MyVideoView) layout.findViewById(R.id.video_view);
-        videoView.setOnErrorListener(this);
-        videoView.setOnCompletionListener(this);
-        videoView.setOnPreparedListener(this);
+        bottomLayout = findViewById(R.id.bottom_layout);
+        seekBar = (SeekBar) findViewById(R.id.progress_view);
+        seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+        timeTxt = (TextView) findViewById(R.id.time);
 
-        CustomMediaController mediaController = new CustomMediaController(getContext());
+        videoView = (VideoView) findViewById(R.id.video_view);
+        videoView.setOnPreparedListener(this);
+        videoView.setOnCompletionListener(this);
+        videoView.setOnErrorListener(this);
+
+        mediaController = new CustomMediaController(getContext());
         mediaController.setHideCallBack(this);
         mediaController.setVisibility(GONE);
         videoView.setMediaController(mediaController);
 
         prepareLayout = findViewById(R.id.prepare_layout);
 
-        closeView.setVisibility(INVISIBLE);
-        playView.setVisibility(INVISIBLE);
-        bottomLayout.setVisibility(INVISIBLE);
-
         videoState = VIDEO_STATE_IDLE;
-    }
-
-    /**
-     * set video path
-     *
-     * @param videoPath
-     */
-    public void setVideoPath(String videoPath) {
-        this.videoPath = videoPath;
     }
 
     /**
@@ -114,37 +101,36 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
     public void setScreenType(int screenType) {
         if (this.screenType != screenType) {
             this.screenType = screenType;
-            if (screenType == SCREEN_DEFAULT) {
-                seekBar.setVisibility(VISIBLE);
-                timeTxt.setVisibility(VISIBLE);
-                fullScreenView.setImageResource(R.drawable.btn_video_to_screen_selector);
-            } else if (screenType == SCREEN_SMALL) {
-                seekBar.setVisibility(INVISIBLE);
-                timeTxt.setVisibility(INVISIBLE);
-                fullScreenView.setImageResource(R.drawable.btn_video_to_screen_selector);
-            } else {
-                seekBar.setVisibility(VISIBLE);
-                timeTxt.setVisibility(VISIBLE);
-                fullScreenView.setImageResource(R.drawable.btn_video_to_window_selector);
-            }
+            show();
         }
     }
 
-    /**
-     * set listener
-     */
-    public void setMyVideoLayoutListener(MyVideoLayoutListener listener) {
-        this.mListener = listener;
+    @Override
+    public void hide() {
+        closeView.setVisibility(INVISIBLE);
+        playView.setVisibility(INVISIBLE);
+        bottomLayout.setVisibility(INVISIBLE);
+        fullScreenView.setVisibility(INVISIBLE);
+    }
+
+    @Override
+    public void show() {
+        playView.setVisibility(VISIBLE);
+        fullScreenView.setVisibility(VISIBLE);
+
+        closeView.setVisibility(screenType == SCREEN_DEFAULT ? INVISIBLE : VISIBLE);
+        bottomLayout.setVisibility(screenType == SCREEN_SMALL ? INVISIBLE : VISIBLE);
+        fullScreenView.setImageResource(screenType == SCREEN_FULL ?
+                R.drawable.btn_video_to_window_selector : R.drawable.btn_video_to_screen_selector);
+        setClickable(screenType != SCREEN_SMALL);
     }
 
     /**
      * video start play
      */
     public void startPlay() {
-        if (TextUtils.isEmpty(videoPath)) {
-            return;
-        }
         if (videoState == VIDEO_STATE_IDLE) {
+            videoView.stopPlayback();
             videoView.setVideoPath(videoPath);
             videoView.requestFocus();
             videoView.start();
@@ -170,38 +156,45 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
      * video stop
      */
     public void stop() {
-        videoState = VIDEO_STATE_IDLE;
         videoView.stopPlayback();
+
         seekBar.setProgress(0);
-        timeTxt.setText(intToStr(0) + "/" + intToStr(videoView.getDuration()));
+        timeTxt.setText(TimeUtil.intToStr(0) + "/" + TimeUtil.intToStr(0));
+
         closeView.setVisibility(INVISIBLE);
         playView.setVisibility(INVISIBLE);
         bottomLayout.setVisibility(INVISIBLE);
+        prepareLayout.setVisibility(VISIBLE);
+
+        videoState = VIDEO_STATE_IDLE;
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
         System.out.println("onPrepared()");
-        videoState = VIDEO_STATE_PLAYING;
-        prepareLayout.setVisibility(GONE);
-        startTime();
+        if (videoState == VIDEO_STATE_PREPARE) {
+            videoState = VIDEO_STATE_PLAYING;
+            prepareLayout.setVisibility(GONE);
+            startTime();
+        }
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
         System.out.println("onCompletion()");
         stop();
-        if (mListener != null)
-            mListener.playOnCompletion();
     }
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         System.out.println("onError()" + "-" + what + "-" + extra);
         stop();
-        if (mListener != null)
-            mListener.playOnError();
         return true;
+    }
+
+    @Override
+    public void onBufferingUpdate(MediaPlayer mp, int percent) {
+        System.out.println("onBufferingUpdate:" + percent);
     }
 
     /**
@@ -223,8 +216,7 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
      * close on click
      */
     private void closeOnClick() {
-        if (mListener != null)
-            mListener.closeOnClick();
+        stop();
     }
 
     /**
@@ -252,27 +244,15 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
         }
     }
 
-    @Override
-    public void hide() {
-        closeView.setVisibility(INVISIBLE);
-        playView.setVisibility(INVISIBLE);
-        bottomLayout.setVisibility(INVISIBLE);
-    }
-
-    @Override
-    public void show() {
-        closeView.setVisibility(VISIBLE);
-        playView.setVisibility(VISIBLE);
-        bottomLayout.setVisibility(VISIBLE);
-    }
-
     private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         int seekIndex = 0;
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             seekIndex = progress;
-            timeTxt.setText(intToStr(videoView.getDuration() * progress / 100) + "/" + intToStr(videoView.getDuration()));
+            String progressStr = TimeUtil.intToStr(videoView.getDuration() * progress / 100);
+            String durationStr = TimeUtil.intToStr(videoView.getDuration());
+            timeTxt.setText(progressStr + "/" + durationStr);
         }
 
         @Override
@@ -304,7 +284,7 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
                 int progress = videoView.getCurrentPosition();
                 if (duration != -1 && duration != 0 && screenType != SCREEN_SMALL) {
                     seekBar.setProgress(progress * 100 / duration);
-                    timeTxt.setText(intToStr(progress) + "/" + intToStr(duration));
+                    timeTxt.setText(TimeUtil.intToStr(progress) + "/" + TimeUtil.intToStr(duration));
                 }
                 handler.postDelayed(timeRunnable, 1000);
             }
@@ -312,33 +292,18 @@ public class MyVideoLayout extends FrameLayout implements View.OnClickListener, 
     };
 
     /**
-     * millisecond format to "00:00"
+     * set video path
      *
-     * @param duration
-     * @return
+     * @param videoPath
      */
-    private String intToStr(int duration) {
-        StringBuilder mBuilder = new StringBuilder();
-        duration = duration / 1000;
-        if (duration / 3600 > 0) {
-            int hour = duration % 60 % 60;
-            int minute = duration % 60;
-            int second = (duration - minute * 60) % 60;
-            mBuilder = hour >= 10 ? mBuilder.append(hour).append(":")
-                    : mBuilder.append("0").append(hour).append(":");
-            mBuilder = minute >= 10 ? mBuilder.append(minute).append(":")
-                    : mBuilder.append("0").append(minute).append(":");
-            mBuilder = second >= 10 ? mBuilder.append(second) : mBuilder
-                    .append("0").append(second);
-        } else {
-            int minute = duration / 60;
-            int second = (duration - minute * 60) % 60;
-            mBuilder = minute >= 10 ? mBuilder.append(minute).append(":")
-                    : mBuilder.append("0").append(minute).append(":");
-            mBuilder = second >= 10 ? mBuilder.append(second) : mBuilder
-                    .append("0").append(second);
-        }
-        return mBuilder.toString();
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
     }
 
+    /**
+     * set listener
+     */
+    public void setMyVideoLayoutListener(MyVideoLayoutListener listener) {
+        this.mListener = listener;
+    }
 }

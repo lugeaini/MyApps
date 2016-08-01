@@ -193,22 +193,7 @@ public class MyVideoController2 implements AbsListView.OnScrollListener, MyVideo
     }
 
     @Override
-    public void closeOnClick() {
-        screenType = SCREEN_DEFAULT;
-        myVideoLayout.stop();
-        myVideoLayout.setVisibility(View.GONE);
-        if (mListener != null)
-            mListener.fullScreen(false);
-    }
-
-    @Override
-    public void playOnCompletion() {
-        closeOnClick();
-    }
-
-    @Override
-    public void playOnError() {
-        closeOnClick();
+    public void onError() {
         if (mListener != null) {
             mListener.playOnError();
         }

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.chenxulu.video.widget.MyVideoView
+    <VideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,42 +16,40 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <SeekBar
+            android:id="@+id/progress_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:progressDrawable="@drawable/btn_video_progressbar"
+            android:thumb="@drawable/btn_video_progress_thumb"
+            android:thumbOffset="0.5dip" />
 
-            <SeekBar
-                android:id="@+id/progress_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:progressDrawable="@drawable/btn_video_progressbar"
-                android:thumb="@drawable/btn_video_progress_thumb"
-                android:thumbOffset="1.5dip" />
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:maxLines="1"
-                android:text="00:00/00:00"
-                android:textColor="@android:color/white"
-                android:textSize="12.0sp" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/full_screen_view"
+        <TextView
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/btn_video_to_screen_selector" />
+            android:layout_weight="0"
+            android:maxLines="1"
+            android:text="00:00/00:00"
+            android:textColor="@android:color/white"
+            android:textSize="12.0sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:src="@drawable/btn_video_to_screen_selector"
+            android:visibility="invisible" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/full_screen_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/btn_video_to_screen_selector" />
 
     <ImageView
         android:id="@+id/close_view"
@@ -79,4 +74,4 @@
             android:layout_height="30dp"
             android:layout_gravity="center" />
     </FrameLayout>
-</FrameLayout>
+</merge>

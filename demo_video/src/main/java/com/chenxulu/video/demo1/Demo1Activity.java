@@ -3,9 +3,11 @@ package com.chenxulu.video.demo1;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,7 +16,7 @@ import com.chenxulu.video.widget.MyVideoLayout;
 
 import java.util.ArrayList;
 
-public class Demo1Activity extends Activity implements MyVideoController1.VideoControllerListener {
+public class Demo1Activity extends Activity implements MyVideoController1.VideoControllerListener, AdapterView.OnItemClickListener {
 
     String videoPath = "http://file.ihimee.cn/videoForMobile/0/%E5%B0%91%E5%84%BF%E8%8B%B1%E8%AF%AD/%E8%8B%B1%E6%96%87%E8%A7%86%E9%A2%91/%E8%8B%B1%E6%96%87%E7%BB%98%E6%9C%AC/Cbeebies%E7%B3%BB%E5%88%97/006%20and%20a%20Bit.mp4";
 
@@ -45,6 +47,7 @@ public class Demo1Activity extends Activity implements MyVideoController1.VideoC
 
         listView = (ListView) findViewById(R.id.list_view);
         listView.addHeaderView(headLayout);
+        listView.setOnItemClickListener(this);
 
         myVideoLayout = (MyVideoLayout) findViewById(R.id.video_player);
         myVideoController = new MyVideoController1(myVideoLayout, listView, headView);
@@ -80,8 +83,8 @@ public class Demo1Activity extends Activity implements MyVideoController1.VideoC
     }
 
     @Override
-    public void playOnError() {
-        Toast.makeText(this, "play error", Toast.LENGTH_SHORT).show();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, "" + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override

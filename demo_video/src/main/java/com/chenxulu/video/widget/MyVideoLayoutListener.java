@@ -6,9 +6,5 @@ package com.chenxulu.video.widget;
 public interface MyVideoLayoutListener {
     void fullScreenChange();
 
-    void closeOnClick();
-
-    void playOnCompletion();
-
-    void playOnError();
+    void onError();
 }

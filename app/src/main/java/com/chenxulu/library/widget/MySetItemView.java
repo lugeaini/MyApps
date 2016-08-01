@@ -35,6 +35,7 @@ public class MySetItemView extends FrameLayout {
 
     public MySetItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.MySetItemView);
         String leftStr = ta.getString(R.styleable.MySetItemView_left_txt);
         String rightStr = ta.getString(R.styleable.MySetItemView_right_txt);

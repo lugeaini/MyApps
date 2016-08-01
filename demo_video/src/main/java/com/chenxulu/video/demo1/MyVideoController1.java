@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.chenxulu.video.widget.MyVideoLayout;
 import com.chenxulu.video.widget.MyVideoLayoutListener;
@@ -88,8 +89,8 @@ public class MyVideoController1 implements AbsListView.OnScrollListener, MyVideo
      * start play video
      */
     public void startPlay() {
-        myVideoLayout.setVisibility(View.VISIBLE);
         setDefaultScreen();
+        myVideoLayout.setVisibility(View.VISIBLE);
         myVideoLayout.startPlay();
     }
 
@@ -218,10 +219,8 @@ public class MyVideoController1 implements AbsListView.OnScrollListener, MyVideo
                 int top = (int) (v.getTop() + dy);
                 int right = (int) (v.getRight() + dx);
                 int bottom = (int) (v.getBottom() + dy);
-                System.out.println(">>>>>>" + left + "-" + right + "-" + top + "-" + bottom);
 
                 if (left > 0 && right < displayWidth && top > listView.getTop() && bottom < displayHeight) {
-                    //v.layout(left, top, right, bottom);
                     ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) myVideoLayout.getLayoutParams();
                     layoutParams.topMargin += dy;
                     layoutParams.leftMargin += dx;
@@ -254,28 +253,6 @@ public class MyVideoController1 implements AbsListView.OnScrollListener, MyVideo
         }
     }
 
-    @Override
-    public void closeOnClick() {
-        screenType = SCREEN_DEFAULT;
-        myVideoLayout.stop();
-        myVideoLayout.setVisibility(View.GONE);
-        if (mListener != null)
-            mListener.fullScreen(false);
-    }
-
-    @Override
-    public void playOnCompletion() {
-        closeOnClick();
-    }
-
-    @Override
-    public void playOnError() {
-        closeOnClick();
-        if (mListener != null) {
-            mListener.playOnError();
-        }
-    }
-
     /**
      * if screen rotate,refresh view location
      */
@@ -291,9 +268,12 @@ public class MyVideoController1 implements AbsListView.OnScrollListener, MyVideo
         }
     }
 
+    @Override
+    public void onError() {
+        Toast.makeText(myVideoLayout.getContext(), "play error", Toast.LENGTH_SHORT).show();
+    }
+
     public interface VideoControllerListener {
         void fullScreen(boolean fullScreen);
-
-        void playOnError();
     }
 }
