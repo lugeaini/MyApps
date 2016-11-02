@@ -2,6 +2,7 @@ package com.chenxulu.myapps.expand;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.chenxulu.myapps.R;
@@ -10,18 +11,25 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ExpandListViewActivity extends AppCompatActivity {
-    private ExpandableListView expandableListView;
-    private ExpandAdapter expandAdapter;
+    private PinnedHeaderExpandableListView mListView;
+    private ExpandAdapter mAdapter;
 
-    private ArrayList<ClassItem> classItems;
+    private ArrayList<ClassItem> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expand_list_view);
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        mListView = (PinnedHeaderExpandableListView) findViewById(R.id.expandableListView);
+        mListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                System.out.println("onChildClick");
+                return false;
+            }
+        });
 
-        classItems = new ArrayList<>();
+        mList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             ClassItem classItem = new ClassItem();
             classItem.setId(i + "");
@@ -35,15 +43,16 @@ public class ExpandListViewActivity extends AppCompatActivity {
                 student.setName("学员" + j);
                 studentList.add(student);
             }
-            classItems.add(classItem);
+            mList.add(classItem);
 
         }
 
-        expandAdapter = new ExpandAdapter(classItems);
-        expandableListView.setAdapter(expandAdapter);
+        mAdapter = new ExpandAdapter(this, mList);
+        mListView.setAdapter(mAdapter);
+        mListView.setOnHeaderUpdateListener(mAdapter);
 
-        for (int i = 0; i < expandAdapter.getGroupCount(); i++) {
-            expandableListView.expandGroup(i);
+        for (int i = 0; i < mAdapter.getGroupCount(); i++) {
+            mListView.expandGroup(i);
         }
     }
 }

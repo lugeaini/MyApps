@@ -16,7 +16,7 @@ public class DeviceUtil {
     /**
      * screen height
      */
-    public static int getDispalyHeight(Context context) {
+    public static int getDisplayHeight(Context context) {
         return context.getResources().getDisplayMetrics().heightPixels;
     }
 

@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:name=".application.VideoCacheApplication"
         android:allowBackup="true"
@@ -21,14 +23,25 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".startmode.StartMode1Activity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:launchMode="standard"/>
         <activity
             android:name=".startmode.StartMode2Activity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:launchMode="singleInstance"/>
-        <activity android:name=".expand.ExpandListViewActivity"/>
-        <activity android:name=".notification.NotificationActivity"/>
-        <activity android:name=".http.RetrofitActivity"/>
-        <activity android:name=".network.NetworkActivity"/>
+        <activity
+            android:name=".expand.ExpandListViewActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".notification.NotificationActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".http.RetrofitActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".network.NetworkActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
 
         <receiver
             android:name=".network.NetworkReceiver"
@@ -39,10 +52,18 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".video.VideoCacheActivity"/>
-        <activity android:name=".SetActivity"/>
-        <activity android:name=".imageloader.ImageLoaderActivity"/>
-        <activity android:name=".account.MyAccountActivity"/>
+        <activity
+            android:name=".video.VideoCacheActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".SetActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".imageloader.ImageLoaderActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".account.MyAccountActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
 
         <service
             android:name=".account.MyAccountService"
@@ -76,14 +97,50 @@
             android:exported="false"
             android:syncable="true"/>
 
-        <activity android:name=".layout.LayoutActivity">
+        <activity
+            android:name=".layout.LayoutActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".http.OkHttpActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".touch.TouchActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".res.DrawableActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".adapter.MultiTypeListActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".animation.AnimationActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity
+            android:name=".startmode.StartMode3Activity"
+            android:label="@string/title_activity_start_mode3"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".drag.DragGridActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".http.OkHttpActivity">
         </activity>
     </application>
 

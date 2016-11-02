@@ -14,7 +14,7 @@ public class SetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
-        itemView8 = (MySetItemView)findViewById(R.id.item8);
+        itemView8 = (MySetItemView) findViewById(R.id.item8);
         itemView8.getCheckBox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

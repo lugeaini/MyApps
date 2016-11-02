@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyApps</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_start_mode3">StartMode3Activity</string>
 </resources>

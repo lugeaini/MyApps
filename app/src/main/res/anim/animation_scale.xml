@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+android:detachWallpaper	(boolean)	    是否在壁纸上运行
+android:duration	    (long)	        动画持续时间，毫秒为单位
+android:fillAfter	    (boolean)	    控件动画结束时是否保持动画最后的状态
+android:fillBefore	    (boolean)	    控件动画结束时是否还原到开始动画前的状态
+android:fillEnabled	    (boolean)	    与android:fillBefore效果相同
+android:interpolator	(Interpolator)	设定插值器（指定的动画效果，譬如回弹等）
+android:repeatCount	    (int)	        重复次数
+android:repeatMode	    (int)	        重复类型有两个值，reverse表示倒序回放，restart表示从头播放
+android:startOffset	    (long)	        调用start函数之后等待开始运行的时间，单位为毫秒
+android:zAdjustment	    (int)	        表示被设置动画的内容运行时在Z轴上的位置（top/bottom/normal），默认为normal
+
+android:fromXScale	初始X轴缩放比例，1.0表示无变化
+android:toXScale	结束X轴缩放比例
+android:fromYScale	初始Y轴缩放比例
+android:toYScale	结束Y轴缩放比例
+android:pivotX	    缩放起点X轴坐标（数值、百分数、百分数p，譬如50表示以当前View左上角坐标加50px为初始点、50%表示以当前View的左上角加上当前View宽高的50%做为初始点、50%p表示以当前View的左上角加上父控件宽高的50%做为初始点）
+android:pivotY	    缩放起点Y轴坐标，同上规律
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <scale
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="0"
+        android:pivotY="0"
+        android:toXScale="1.0"
+        android:toYScale="1.0"/>
+</set>
+

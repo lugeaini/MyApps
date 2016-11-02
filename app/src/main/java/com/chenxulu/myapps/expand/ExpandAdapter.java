@@ -1,8 +1,10 @@
 package com.chenxulu.myapps.expand;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
@@ -13,16 +15,18 @@ import java.util.ArrayList;
 /**
  * Created by xulu on 16/5/26.
  */
-public class ExpandAdapter extends BaseExpandableListAdapter {
-    private ArrayList<ClassItem> classList;
+public class ExpandAdapter extends BaseExpandableListAdapter implements PinnedHeaderExpandableListView.OnHeaderUpdateListener {
+    private Context mContext;
+    private ArrayList<ClassItem> mList;
 
-    public ExpandAdapter(ArrayList<ClassItem> classItems) {
-        this.classList = classItems;
+    public ExpandAdapter(Context context, ArrayList<ClassItem> list) {
+        this.mContext = context;
+        this.mList = list;
     }
 
     @Override
     public int getGroupCount() {
-        return classList.size();
+        return mList.size();
     }
 
     @Override
@@ -32,21 +36,21 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int groupPosition) {
-        return classList.get(groupPosition);
+        return mList.get(groupPosition);
     }
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_expend_group_item, null);
+            convertView = View.inflate(mContext, R.layout.layout_expend_group_item, null);
             holder = new GroupHolder();
             holder.textView = (TextView) convertView.findViewById(R.id.txt);
             convertView.setTag(holder);
         } else {
             holder = (GroupHolder) convertView.getTag();
         }
-        holder.textView.setText(classList.get(groupPosition).getName());
+        holder.textView.setText(mList.get(groupPosition).getName());
         return convertView;
     }
 
@@ -57,7 +61,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return classList.get(groupPosition).getStudents().size();
+        return mList.get(groupPosition).getStudents().size();
     }
 
     @Override
@@ -67,12 +71,12 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return classList.get(groupPosition).getStudents().get(childPosition);
+        return mList.get(groupPosition).getStudents().get(childPosition);
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
     @Override
@@ -86,7 +90,7 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (ChildHolder) convertView.getTag();
         }
-        Student student = classList.get(groupPosition).getStudents().get(childPosition);
+        Student student = mList.get(groupPosition).getStudents().get(childPosition);
         holder.textView.setText(student.getName());
         return convertView;
     }
@@ -97,6 +101,24 @@ public class ExpandAdapter extends BaseExpandableListAdapter {
 
     class ChildHolder {
         TextView textView;
+    }
+
+
+    @Override
+    public View getPinnedHeader() {
+        View headView = View.inflate(mContext, R.layout.layout_expend_group_item, null);
+        headView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT));
+        GroupHolder holder = new GroupHolder();
+        holder.textView = (TextView) headView.findViewById(R.id.txt);
+        headView.setTag(holder);
+        return headView;
+    }
+
+    @Override
+    public void updatePinnedHeader(View headerView, int firstVisibleGroupPos) {
+        ClassItem group = (ClassItem) getGroup(firstVisibleGroupPos);
+        GroupHolder holder = (GroupHolder) headerView.getTag();
+        holder.textView.setText(group.getName());
     }
 }
 

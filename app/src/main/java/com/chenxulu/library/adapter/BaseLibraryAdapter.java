@@ -18,17 +18,31 @@ public abstract class BaseLibraryAdapter<E> extends BaseAdapter {
 
     @Override
     public int getCount() {
+        System.out.println("getCount:" + list.size());
         return list.size();
     }
 
     @Override
     public Object getItem(int position) {
+        System.out.println("getItem:" + position);
         return list.get(position);
     }
 
     @Override
     public long getItemId(int position) {
+        System.out.println("getItemId:" + position);
         return position;
     }
 
+    @Override
+    public int getViewTypeCount() {
+        System.out.println("getViewTypeCount:");
+        return super.getViewTypeCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        System.out.println("getItemViewType:");
+        return super.getItemViewType(position);
+    }
 }

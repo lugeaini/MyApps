@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+android:detachWallpaper	(boolean)	    是否在壁纸上运行
+android:duration	    (long)	        动画持续时间，毫秒为单位
+android:fillAfter	    (boolean)	    控件动画结束时是否保持动画最后的状态
+android:fillBefore	    (boolean)	    控件动画结束时是否还原到开始动画前的状态
+android:fillEnabled	    (boolean)	    与android:fillBefore效果相同
+android:interpolator	(Interpolator)	设定插值器（指定的动画效果，譬如回弹等）
+android:repeatCount	    (int)	        重复次数
+android:repeatMode	    (int)	        重复类型有两个值，reverse表示倒序回放，restart表示从头播放
+android:startOffset	    (long)	        调用start函数之后等待开始运行的时间，单位为毫秒
+android:zAdjustment	    (int)	        表示被设置动画的内容运行时在Z轴上的位置（top/bottom/normal），默认为normal
+
+动画开始的透明度（0.0到1.0，0.0是全透明，1.0是不透明）
+-->
+<alpha
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromAlpha="0"
+    android:toAlpha="0"/>
