@@ -1,1 +1,2 @@
-include ':app', ':demo_video',':demo_expand'
+include ':drawable', ':mydatepicker'
+include ':app'
