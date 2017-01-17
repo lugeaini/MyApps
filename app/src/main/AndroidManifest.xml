@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
-
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
@@ -110,7 +109,6 @@
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
         <activity
             android:name=".touch.TouchActivity"
@@ -119,6 +117,7 @@
         <activity
             android:name=".res.DrawableActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize">
+
         </activity>
         <activity
             android:name=".adapter.MultiTypeListActivity"
@@ -135,6 +134,12 @@
         </activity>
         <activity
             android:name=".drag.DragGridActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+        </activity>
+        <activity android:name=".drag.DragGrid2Activity">
+        </activity>
+        <activity
+            android:name=".recycle.DragRecycleActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

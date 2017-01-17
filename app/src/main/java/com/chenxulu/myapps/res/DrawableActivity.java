@@ -1,35 +1,30 @@
 package com.chenxulu.myapps.res;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chenxulu.myapps.R;
 
-public class DrawableActivity extends AppCompatActivity {
+public class DrawableActivity extends Activity {
+    ImageView logoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawable_res);
-        findViewById(R.id.image_view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DrawableActivity.this, DrawableActivity.class));
-            }
-        });
+        logoView = (ImageView) findViewById(R.id.image_view);
 
         findViewById(R.id.fab1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("--");
-            }
-        });
-        findViewById(R.id.fab2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+                System.out.println("width:" + logoView.getWidth());
+                System.out.println("height:" + logoView.getHeight());
             }
         });
     }
