@@ -117,7 +117,6 @@
         <activity
             android:name=".res.DrawableActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize">
-
         </activity>
         <activity
             android:name=".adapter.MultiTypeListActivity"
@@ -133,13 +132,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".drag.DragGridActivity"
+            android:name=".recycle.DragRecycleActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize">
         </activity>
-        <activity android:name=".drag.DragGrid2Activity">
-        </activity>
         <activity
-            android:name=".recycle.DragRecycleActivity"
+            android:name=".draw.DrawActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
