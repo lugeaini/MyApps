@@ -39,6 +39,7 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
         super(context, attrs, defStyleAttr);
         mPaint = new Paint();
         mPaint.setColor(Color.RED);
+        mPaint.setStrokeWidth(10);
         list = new ArrayList<>();
 
         setMyTouchListener(this);
