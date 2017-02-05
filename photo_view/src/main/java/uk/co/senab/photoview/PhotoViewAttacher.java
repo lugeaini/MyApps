@@ -147,6 +147,7 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, OnGe
     private int mScrollEdge = EDGE_BOTH;
     private float mBaseRotation;
 
+    private boolean mDragEnabled = true;
     private boolean mZoomEnabled;
     private ScaleType mScaleType = ScaleType.FIT_CENTER;
 
@@ -362,6 +363,9 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, OnGe
 
     @Override
     public void onDrag(float dx, float dy) {
+        if (!mDragEnabled)
+            return;
+
         if (mScaleDragDetector.isScaling()) {
             return; // Do not drag if we are already scaling
         }
@@ -399,6 +403,9 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, OnGe
 
     @Override
     public void onFling(float startX, float startY, float velocityX, float velocityY) {
+        if (!mDragEnabled)
+            return;
+
         if (DEBUG) {
             LogManager.getLogger().d(LOG_TAG, "onFling. sX: " + startX + " sY: " + startY + " Vx: " + velocityX + " Vy: " + velocityY);
         }
@@ -579,8 +586,22 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, OnGe
         return mViewTapListener;
     }
 
+    /**
+     * 添加代码:设置Touch事件监听
+     *
+     * @param onTouchListener
+     */
     public void setMyTouchListener(View.OnTouchListener onTouchListener) {
         mTouchListener = onTouchListener;
+    }
+
+    /**
+     * 添加代码: 是否可以拖拽
+     *
+     * @param canDrag
+     */
+    public void setCanDrag(boolean canDrag) {
+        mDragEnabled = canDrag;
     }
 
     @Override
