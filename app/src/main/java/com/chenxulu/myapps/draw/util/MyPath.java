@@ -1,4 +1,4 @@
-package com.chenxulu.myapps.draw;
+package com.chenxulu.myapps.draw.util;
 
 import android.graphics.Paint;
 import android.graphics.PointF;

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.chenxulu.myapps.R;
+import com.chenxulu.myapps.draw.util.MyDrawView;
 
 import java.util.Random;
 

@@ -1,14 +1,13 @@
 package com.chenxulu.myapps.draw.util;
 
 import android.graphics.PointF;
-import android.graphics.RectF;
 import android.view.MotionEvent;
 
 /**
  * Created by xulu on 2017/2/4.
  */
 
-public class TextDraw {
+public class ImageTouch {
     public static final double ROTATION_STEP = 2.0;
 
     private boolean mMoved;
@@ -22,14 +21,12 @@ public class TextDraw {
 
     private PointF tempPoint = new PointF();
 
-    private RectF mCanvasRect;
     private ImageObject mImageObject;
 
     private long selectTime = 0;
 
-    public TextDraw(ImageObject imageObject, RectF mCanvasRect) {
+    public ImageTouch(ImageObject imageObject) {
         this.mImageObject = imageObject;
-        this.mCanvasRect = mCanvasRect;
     }
 
     /**
@@ -81,8 +78,8 @@ public class TextDraw {
                 mResizeAndRotate = false;
 
                 boolean touchInside = mImageObject.contains(event.getX(), event.getY());
-                boolean touchDelete = mImageObject.pointOnCorner(event.getX(), event.getY(), OperateConstants.LEFT_TOP);
-                boolean touchRotate = mImageObject.pointOnCorner(event.getX(), event.getY(), OperateConstants.RIGHT_BOTTOM);
+                boolean touchDelete = mImageObject.pointOnCorner(event.getX(), event.getY(), GraphicsUtil.LEFT_TOP);
+                boolean touchRotate = mImageObject.pointOnCorner(event.getX(), event.getY(), GraphicsUtil.RIGHT_BOTTOM);
 
                 if (touchInside || touchDelete || touchRotate) {
                     long currentTime = System.currentTimeMillis();
@@ -113,20 +110,17 @@ public class TextDraw {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                // 移动
                 if (mMoved) {
+                    // 移动
                     float offsetX = event.getX() - tempPoint.x;
                     float offsetY = event.getY() - tempPoint.y;
 
                     tempPoint.set(event.getX(), event.getY());
 
                     PointF point = mImageObject.getPoint();
-                    if (mCanvasRect.contains(point.x + offsetX, point.y + offsetY)) {
-                        point.offset(offsetX, offsetY);
-                    }
-                }
-                // 旋转和缩放
-                if (mResizeAndRotate) {
+                    point.offset(offsetX, offsetY);
+                } else if (mResizeAndRotate) {
+                    // 旋转和缩放
                     float offsetX = event.getX() - mImageObject.getPoint().x;
                     float offsetY = event.getY() - mImageObject.getPoint().y;
 

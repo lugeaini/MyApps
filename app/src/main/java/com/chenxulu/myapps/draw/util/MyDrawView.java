@@ -1,4 +1,4 @@
-package com.chenxulu.myapps.draw;
+package com.chenxulu.myapps.draw.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,14 +8,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.chenxulu.myapps.R;
-import com.chenxulu.myapps.draw.util.TextDraw;
+import com.chenxulu.myapps.draw.util.GraphicsUtil;
+import com.chenxulu.myapps.draw.util.ImageTouch;
+import com.chenxulu.myapps.draw.util.MyPath;
 import com.chenxulu.myapps.draw.util.TextObject;
 
 import java.util.ArrayList;
@@ -32,17 +33,16 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
     private Bitmap cacheBitmap;
     private Paint mPaint;
 
-    private List<MyPath> mList;
+    private List<MyPath> mPathList = new ArrayList<>();
 
-    private RectF mRectF;
+    private RectF mRectF = new RectF(0, 0, 0, 0);
     private float mScale = 1.0f;
     private List<PointF> tempList;
     private Path tempPath;
 
     private boolean mDrawEnable;
 
-    private TextObject textObject;
-    private TextDraw textDraw;
+    private List<TextObject> mTextList = new ArrayList<>();
 
     public MyDrawView(Context context) {
         this(context, null, 0);
@@ -65,10 +65,6 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
         cacheCanvas = new Canvas();
         initCanvas();
 
-        mList = new ArrayList<>();
-
-        mRectF = new RectF(0, 0, 0, 0);
-
         setMyTouchListener(this);
         setOnMatrixChangeListener(this);
 
@@ -87,11 +83,11 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
         super.onDraw(canvas);
 
         canvas.drawBitmap(cacheBitmap, 0, 0, mPaint);
-        if (textObject != null) {
-            textObject.draw(canvas, mScale, mRectF);
+
+        for (int i = 0; i < mTextList.size(); i++) {
+            mTextList.get(i).draw(canvas, mScale, mRectF);
         }
     }
-
 
     @Override
     public void onMatrixChanged(RectF rect) {
@@ -102,21 +98,49 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
         mScale = scale;
         mRectF = new RectF(rect);
         if (scaleChanged || (!mDrawEnable && rectChanged)) {
-            MyDrawUtil.drawPathList(this, cacheCanvas, mList, rect);
+            GraphicsUtil.drawPathList(this, cacheCanvas, mPathList, rect);
         }
     }
 
+    private ImageTouch imageTouch;
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (textObject != null && textObject.contains(event.getX(), event.getY())) {
-            if (event.getPointerCount() == 1) {
-                textDraw.singleTouchEvent(event);
-            } else {
-                textDraw.multiTouchEvent(event);
-            }
-            invalidate();
-            return true;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                for (int i = 0; i < mTextList.size(); i++) {
+                    TextObject textObject = mTextList.get(i);
+                    if (textObject.contains(event.getX(), event.getY())) {
+                        imageTouch = new ImageTouch(textObject);
+                        if (event.getPointerCount() == 1) {
+                            imageTouch.singleTouchEvent(event);
+                        } else {
+                            imageTouch.multiTouchEvent(event);
+                        }
+                        invalidate();
+                        return true;
+                    }
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (imageTouch != null) {
+                    if (event.getPointerCount() == 1) {
+                        imageTouch.singleTouchEvent(event);
+                    } else {
+                        imageTouch.multiTouchEvent(event);
+                    }
+                    invalidate();
+                    return true;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                if (imageTouch != null){
+                    imageTouch = null;
+                }
+                break;
         }
+
 
         if (mDrawEnable && event.getPointerCount() == 1) {
             float x = (event.getX() - mRectF.left) / mScale;
@@ -136,9 +160,10 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
                     cacheCanvas.drawPath(tempPath, mPaint);
                     break;
                 case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
                     if (tempList.size() > 1) {
                         MyPath myPath = new MyPath(tempList, new Paint(mPaint));
-                        mList.add(myPath);
+                        mPathList.add(myPath);
                     }
                     tempPath.reset();
                     break;
@@ -163,9 +188,9 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
      * 撤销
      */
     public void undo() {
-        if (mList.size() > 0) {
-            mList.remove(mList.size() - 1);
-            MyDrawUtil.drawPathList(this, cacheCanvas, mList, mRectF);
+        if (mPathList.size() > 0) {
+            mPathList.remove(mPathList.size() - 1);
+            GraphicsUtil.drawPathList(this, cacheCanvas, mPathList, mRectF);
         }
     }
 
@@ -183,9 +208,8 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
         Bitmap rotate = BitmapFactory.decodeResource(getResources(), R.drawable.draw_txt_rotate);
         Bitmap delete = BitmapFactory.decodeResource(getResources(), R.drawable.draw_txt_delete);
 
-        textObject = new TextObject(text, getWidth() / 2, getHeight() / 2, rotate, delete);
-
-        textDraw = new TextDraw(textObject, mRectF);
+        TextObject textObject = new TextObject(text, getWidth() / 2, getHeight() / 2, rotate, delete);
+        mTextList.add(textObject);
 
         invalidate();
     }

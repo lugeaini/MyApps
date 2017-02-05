@@ -189,8 +189,7 @@ public class ImageObject {
         listPoints.add(getPointRightTop());
         listPoints.add(getPointRightBottom());
         listPoints.add(getPointLeftBottom());
-        Lasso lasso = new Lasso(listPoints);
-        return lasso.contains(pointX, pointY);
+        return GraphicsUtil.contains(listPoints, new PointF(pointX, pointY));
     }
 
     /**
@@ -203,13 +202,13 @@ public class ImageObject {
      */
     public boolean pointOnCorner(float x, float y, int type) {
         PointF point = null;
-        if (OperateConstants.LEFT_TOP == type) {
+        if (GraphicsUtil.LEFT_TOP == type) {
             point = getPointLeftTop();
-        } else if (OperateConstants.LEFT_BOTTOM == type) {
+        } else if (GraphicsUtil.LEFT_BOTTOM == type) {
             point = getPointLeftBottom();
-        } else if (OperateConstants.RIGHT_TOP == type) {
+        } else if (GraphicsUtil.RIGHT_TOP == type) {
             point = getPointRightTop();
-        } else if (OperateConstants.RIGHT_BOTTOM == type) {
+        } else if (GraphicsUtil.RIGHT_BOTTOM == type) {
             point = getPointRightBottom();
         }
 
