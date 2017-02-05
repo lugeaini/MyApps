@@ -56,4 +56,26 @@ public class MyDrawUtil {
         }
         view.invalidate();
     }
+
+    /**
+     * 绘制一组路径
+     *
+     * @param canvas
+     * @param list
+     */
+    public static void drawPathList(Canvas canvas, List<MyPath> list) {
+        for (int i = 0; i < list.size(); i++) {
+            MyPath myPath = list.get(i);
+            List<PointF> tList = myPath.getList();
+            Path path = new Path();
+            for (int j = 0; j < tList.size(); j++) {
+                PointF pointF = tList.get(j);
+                if (j == 0)
+                    path.moveTo(pointF.x, pointF.y);
+                else
+                    path.lineTo(pointF.x, pointF.y);
+            }
+            canvas.drawPath(path, myPath.getPaint());
+        }
+    }
 }

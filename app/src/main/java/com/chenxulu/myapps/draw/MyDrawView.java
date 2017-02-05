@@ -88,8 +88,7 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
 
         canvas.drawBitmap(cacheBitmap, 0, 0, mPaint);
         if (textObject != null) {
-            textObject.draw(canvas);
-            textObject.drawIcon(canvas);
+            textObject.draw(canvas, mScale, mRectF);
         }
     }
 
@@ -109,10 +108,14 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (event.getPointerCount() == 1) {
-            textDraw.singleTouchEvent(event);
-        } else {
-            textDraw.multiTouchEvent(event);
+        if (textObject != null && textObject.contains(event.getX(), event.getY())) {
+            if (event.getPointerCount() == 1) {
+                textDraw.singleTouchEvent(event);
+            } else {
+                textDraw.multiTouchEvent(event);
+            }
+            invalidate();
+            return true;
         }
 
         if (mDrawEnable && event.getPointerCount() == 1) {
@@ -144,7 +147,7 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
             }
             invalidate();
         }
-        return true;
+        return false;
     }
 
     /**
@@ -179,8 +182,8 @@ public class MyDrawView extends PhotoView implements View.OnTouchListener, Photo
     public void addText(String text) {
         Bitmap rotate = BitmapFactory.decodeResource(getResources(), R.drawable.draw_txt_rotate);
         Bitmap delete = BitmapFactory.decodeResource(getResources(), R.drawable.draw_txt_delete);
-        textObject = new TextObject(text, 400, 400, rotate, delete);
-        textObject.commit();
+
+        textObject = new TextObject(text, getWidth() / 2, getHeight() / 2, rotate, delete);
 
         textDraw = new TextDraw(textObject, mRectF);
 

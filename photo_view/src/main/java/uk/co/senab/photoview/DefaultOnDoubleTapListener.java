@@ -48,14 +48,12 @@ public class DefaultOnDoubleTapListener implements GestureDetector.OnDoubleTapLi
                 // Check to see if the user tapped on the photo
                 if (displayRect.contains(x, y)) {
 
-                    float xResult = (x - displayRect.left)
-                            / displayRect.width();
-                    float yResult = (y - displayRect.top)
-                            / displayRect.height();
+                    float xResult = (x - displayRect.left) / displayRect.width();
+                    float yResult = (y - displayRect.top) / displayRect.height();
 
                     photoViewAttacher.getOnPhotoTapListener().onPhotoTap(imageView, xResult, yResult);
                     return true;
-                }else{
+                } else {
                     photoViewAttacher.getOnPhotoTapListener().onOutsidePhotoTap();
                 }
             }

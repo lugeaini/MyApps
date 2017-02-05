@@ -31,7 +31,7 @@ public class DrawActivity extends AppCompatActivity {
     }
 
     public void addText(View view) {
-        myDrawView.addText("aaa");
+        myDrawView.addText("aaaaaaaaaaaa\naaaaaaaa");
     }
 
     public void canDraw(View view) {

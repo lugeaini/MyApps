@@ -6,23 +6,22 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.RectF;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageObject {
-    protected final int resizeBoxSize = 50;
+    private final int resizeBoxSize = 50;
 
     protected PointF mPoint = new PointF();
     protected float mRotation;
 
-    private float centerRotation;
-    private float R;
+    private float centerDegrees;
+    private float centerDistance;
 
     protected float mScale = 1.0f;
 
-    protected boolean flipVertical;
-    protected boolean flipHorizontal;
     protected boolean isTextObject;
 
     protected Bitmap srcBitmap;
@@ -61,20 +60,27 @@ public class ImageObject {
         paint.setStrokeWidth(2);// 设置线宽
     }
 
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, float scale, RectF rectF) {
         int sc = canvas.save();
         try {
             canvas.translate(mPoint.x, mPoint.y);
-            canvas.scale(mScale, mScale);
-            int sc2 = canvas.save();
             canvas.rotate(mRotation);
-            canvas.scale((flipHorizontal ? -1 : 1), (flipVertical ? -1 : 1));
+            canvas.scale(mScale * scale, mScale * scale);
             canvas.drawBitmap(srcBitmap, -getWidth() / 2, -getHeight() / 2, paint);
-            canvas.restoreToCount(sc2);
         } catch (Exception e) {
             e.printStackTrace();
         }
         canvas.restoreToCount(sc);
+    }
+
+    /**
+     * 计算中心点的坐标
+     */
+    protected void setCenter() {
+        float delX = getWidth() * mScale / 2;
+        float delY = getHeight() * mScale / 2;
+        centerDistance = (float) Math.sqrt((delX * delX + delY * delY));
+        centerDegrees = (float) Math.toDegrees(Math.atan(delY / delX));
     }
 
     /**
@@ -83,7 +89,7 @@ public class ImageObject {
      * @return
      */
     protected PointF getPointLeftTop() {
-        PointF pointF = getPointByRotation(centerRotation - 180);
+        PointF pointF = getPointByRotation(centerDegrees - 180);
         return pointF;
     }
 
@@ -93,7 +99,7 @@ public class ImageObject {
      * @return
      */
     protected PointF getPointRightTop() {
-        PointF pointF = getPointByRotation(-centerRotation);
+        PointF pointF = getPointByRotation(-centerDegrees);
         return pointF;
     }
 
@@ -103,7 +109,7 @@ public class ImageObject {
      * @return
      */
     protected PointF getPointRightBottom() {
-        PointF pointF = getPointByRotation(centerRotation);
+        PointF pointF = getPointByRotation(centerDegrees);
         return pointF;
     }
 
@@ -113,18 +119,8 @@ public class ImageObject {
      * @return
      */
     protected PointF getPointLeftBottom() {
-        PointF pointF = getPointByRotation(-centerRotation + 180);
+        PointF pointF = getPointByRotation(-centerDegrees + 180);
         return pointF;
-    }
-
-    /**
-     * 计算中心点的坐标
-     */
-    protected void setCenter() {
-        float delX = getWidth() * mScale / 2;
-        float delY = getHeight() * mScale / 2;
-        R = (float) Math.sqrt((delX * delX + delY * delY));
-        centerRotation = (float) Math.toDegrees(Math.atan(delY / delX));
     }
 
     /**
@@ -136,8 +132,8 @@ public class ImageObject {
     private PointF getPointByRotation(float rotation) {
         PointF pointF = new PointF();
         double rot = (mRotation + rotation) * Math.PI / 180;
-        pointF.x = getPoint().x + (float) (R * Math.cos(rot));
-        pointF.y = getPoint().y + (float) (R * Math.sin(rot));
+        pointF.x = mPoint.x + (float) (centerDistance * Math.cos(rot));
+        pointF.y = mPoint.y + (float) (centerDistance * Math.sin(rot));
         return pointF;
     }
 
@@ -150,8 +146,8 @@ public class ImageObject {
     public PointF getPointByRotationInCanvas(float rotation) {
         PointF pointF = new PointF();
         double rot = (mRotation + rotation) * Math.PI / 180;
-        pointF.x = (float) (R * Math.cos(rot));
-        pointF.y = (float) (R * Math.sin(rot));
+        pointF.x = (float) (centerDistance * Math.cos(rot));
+        pointF.y = (float) (centerDistance * Math.sin(rot));
         return pointF;
     }
 
@@ -178,19 +174,6 @@ public class ImageObject {
      */
     public int getHeight() {
         return srcBitmap.getHeight();
-    }
-
-    /**
-     * 绘画选中的图标
-     *
-     * @param canvas
-     */
-    public void drawIcon(Canvas canvas) {
-        PointF deletePF = getPointLeftTop();
-        canvas.drawBitmap(deleteBm, deletePF.x - deleteBm.getWidth() / 2, deletePF.y - deleteBm.getHeight() / 2, paint);
-
-        PointF rotatePF = getPointRightBottom();
-        canvas.drawBitmap(rotateBm, rotatePF.x - rotateBm.getWidth() / 2, rotatePF.y - rotateBm.getHeight() / 2, paint);
     }
 
     /**

@@ -92,9 +92,9 @@ public class TextDraw {
                                 myListener.onClick((TextObject) mImageObject);
                             }
                         }
+                        break;
                     }
                     selectTime = currentTime;
-                    break;
                 }
                 if (touchDelete) {
                     //delete
@@ -151,7 +151,6 @@ public class TextDraw {
                 mResizeAndRotate = false;
                 break;
         }
-        //cancelLongPress();
     }
 
     /**

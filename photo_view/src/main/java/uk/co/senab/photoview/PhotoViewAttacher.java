@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2011, 2012 Chris Banes.
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *******************************************************************************/
 package uk.co.senab.photoview;
 
 import android.annotation.SuppressLint;
@@ -38,14 +23,13 @@ import android.widget.ImageView.ScaleType;
 
 import java.lang.ref.WeakReference;
 
+import uk.co.senab.photoview.gestures.FroyoGestureDetector;
 import uk.co.senab.photoview.gestures.OnGestureListener;
-import uk.co.senab.photoview.gestures.VersionedGestureDetector;
 import uk.co.senab.photoview.log.LogManager;
 import uk.co.senab.photoview.scrollerproxy.ScrollerProxy;
 
 import static android.view.MotionEvent.ACTION_CANCEL;
 import static android.view.MotionEvent.ACTION_DOWN;
-import static android.view.MotionEvent.ACTION_MOVE;
 import static android.view.MotionEvent.ACTION_UP;
 
 public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, OnGestureListener, ViewTreeObserver.OnGlobalLayoutListener {
@@ -172,7 +156,8 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, OnGe
             return;
         }
         // Create Gesture Detectors...
-        mScaleDragDetector = VersionedGestureDetector.newInstance(imageView.getContext(), this);
+        mScaleDragDetector = new FroyoGestureDetector(imageView.getContext());
+        mScaleDragDetector.setOnGestureListener(this);
 
         mGestureDetector = new GestureDetector(imageView.getContext(), new GestureDetector.SimpleOnGestureListener() {
 
@@ -467,8 +452,11 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, OnGe
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent ev) {
-        if (mTouchListener != null)
-            mTouchListener.onTouch(v, ev);
+        if (mTouchListener != null) {
+            boolean isTouch = mTouchListener.onTouch(v, ev);
+            if (isTouch)
+                return true;
+        }
 
         boolean handled = false;
 
@@ -476,22 +464,19 @@ public class PhotoViewAttacher implements IPhotoView, View.OnTouchListener, OnGe
             ViewParent parent = v.getParent();
             switch (ev.getAction()) {
                 case ACTION_DOWN:
-                    // First, disable the Parent from intercepting the touch
-                    // event
+                    // First, disable the Parent from intercepting the touch event
                     if (null != parent) {
                         parent.requestDisallowInterceptTouchEvent(true);
                     } else {
                         LogManager.getLogger().i(LOG_TAG, "onTouch getParent() returned null");
                     }
 
-                    // If we're flinging, and the user presses down, cancel
-                    // fling
+                    // If we're flinging, and the user presses down, cancel fling
                     cancelFling();
                     break;
                 case ACTION_CANCEL:
                 case ACTION_UP:
-                    // If the user has zoomed less than min scale, zoom back
-                    // to min scale
+                    // If the user has zoomed less than min scale, zoom back to min scale
                     if (getScale() < mMinScale) {
                         RectF rect = getDisplayRect();
                         if (null != rect) {
