@@ -39,4 +39,10 @@
             android:onClick="canDraw"
             android:text="can"/>
     </LinearLayout>
+
+    <com.chenxulu.myapps.draw.util.SelectColorView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black"/>
 </RelativeLayout>
