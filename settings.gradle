@@ -1,3 +1,2 @@
-include ':drawable', ':mydatepicker'
+include ':my_datepicker', ':my_library'
 include ':app'
-include ':photo_view'

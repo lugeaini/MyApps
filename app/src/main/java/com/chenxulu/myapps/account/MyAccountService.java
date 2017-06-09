@@ -10,9 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 
-import com.chenxulu.library.service.BaseLibraryService;
-
-public class MyAccountService extends BaseLibraryService {
+public class MyAccountService extends Service {
 
     private MyAuthenticator myAuthenticator;
 

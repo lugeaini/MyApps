@@ -11,14 +11,12 @@ import android.content.SyncResult;
 import android.os.Bundle;
 import android.os.IBinder;
 
-import com.chenxulu.library.service.BaseLibraryService;
-
 /**
  * Define a Service that returns an IBinder for the
  * sync adapter class, allowing the sync adapter framework to call
  * onPerformSync().
  */
-public class MySyncService extends BaseLibraryService {
+public class MySyncService extends Service {
     // Storage for an instance of the sync adapter
     private static MySyncAdapter mySyncAdapter = null;
     // Object to use as a thread-safe lock

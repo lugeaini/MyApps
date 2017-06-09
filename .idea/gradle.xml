@@ -3,16 +3,14 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/drawable" />
-            <option value="$PROJECT_DIR$/mydatepicker" />
-            <option value="$PROJECT_DIR$/photo_view" />
+            <option value="$PROJECT_DIR$/my_datepicker" />
+            <option value="$PROJECT_DIR$/my_library" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

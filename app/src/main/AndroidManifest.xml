@@ -23,24 +23,30 @@
         <activity
             android:name=".startmode.StartMode1Activity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
-            android:launchMode="standard"/>
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".startmode.StartMode2Activity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".expand.ExpandListViewActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".notification.NotificationActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".http.RetrofitActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+            android:name=".network.RetrofitActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".network.NetworkActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
         <receiver
             android:name=".network.NetworkReceiver"
@@ -53,16 +59,12 @@
 
         <activity
             android:name=".video.VideoCacheActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
-        <activity
-            android:name=".SetActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
-        <activity
-            android:name=".imageloader.ImageLoaderActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".account.MyAccountActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize"/>
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".account.MyAccountService"
@@ -98,46 +100,55 @@
 
         <activity
             android:name=".layout.LayoutActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".http.OkHttpActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+            android:name=".network.OkHttpActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".MainActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".touch.TouchActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".res.DrawableActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".adapter.MultiTypeListActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
-        </activity>
-        <activity
-            android:name=".animation.AnimationActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".startmode.StartMode3Activity"
             android:label="@string/title_activity_start_mode3"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".recycle.DragRecycleActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+            android:name=".recycle.drag.DragRecycleActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".draw.DrawActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize">
+            android:name=".recycle.MyRecycleActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".recycle.MyListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

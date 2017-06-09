@@ -5,12 +5,12 @@
     android:id="@+id/activity_recycle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chenxulu.myapps.recycle.DragRecycleActivity">
+    tools:context="com.chenxulu.myapps.recycle.drag.DragRecycleActivity">
 
-    <com.chenxulu.myapps.recycle.MyDragRecycleView
+    <com.chenxulu.myapps.recycle.drag.MyDragRecycleView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </com.chenxulu.myapps.recycle.MyDragRecycleView>
+    </com.chenxulu.myapps.recycle.drag.MyDragRecycleView>
 </RelativeLayout>
