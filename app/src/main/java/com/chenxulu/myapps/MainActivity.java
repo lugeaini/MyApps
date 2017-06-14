@@ -11,8 +11,6 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab2;
-    private String aa;
-    private String bb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

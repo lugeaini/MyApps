@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 public class MyAccountProvider extends ContentProvider {
-
+    int b;
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
