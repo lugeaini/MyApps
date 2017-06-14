@@ -14,6 +14,7 @@ import com.chenxulu.myapps.R;
 
 public class MyAccountActivity extends AppCompatActivity {
 
+    
     // Constants
     // The authority for the sync adapter's content provider
     public static final String AUTHORITY = "com.chenxulu.myapps.account";
