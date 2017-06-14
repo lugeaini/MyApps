@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.chenxulu.myapps.R;
 
 public class MyAccountActivity extends AppCompatActivity {
-    int a;
     // Constants
     // The authority for the sync adapter's content provider
     public static final String AUTHORITY = "com.chenxulu.myapps.account";

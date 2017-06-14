@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 
 public class MyAccountService extends Service {
-    int c;
     private MyAuthenticator myAuthenticator;
 
     @Override
