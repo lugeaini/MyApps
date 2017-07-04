@@ -1,11 +1,14 @@
-package com.chenxulu.myapps.expand;
+package com.chenxulu.myapps.model;
+
+import java.util.ArrayList;
 
 /**
  * Created by xulu on 16/5/26.
  */
-public class Student {
+public class ClassItem {
     private String id;
     private String name;
+    private ArrayList<Student> students;
 
     public String getId() {
         return id;
@@ -21,5 +24,13 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
     }
 }

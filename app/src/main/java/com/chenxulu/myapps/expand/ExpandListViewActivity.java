@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.chenxulu.myapps.R;
+import com.chenxulu.myapps.model.ClassItem;
+import com.chenxulu.myapps.model.Student;
 
 import java.util.ArrayList;
 import java.util.Random;

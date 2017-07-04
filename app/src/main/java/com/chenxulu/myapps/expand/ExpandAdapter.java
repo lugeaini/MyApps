@@ -9,6 +9,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.chenxulu.myapps.R;
+import com.chenxulu.myapps.model.ClassItem;
+import com.chenxulu.myapps.model.Student;
 
 import java.util.ArrayList;
 

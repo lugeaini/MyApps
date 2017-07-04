@@ -21,6 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MainActivity"
+            android:configChanges="locale|orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".startmode.StartMode1Activity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:launchMode="standard"
@@ -109,13 +115,6 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:configChanges="locale|orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_main"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".touch.TouchActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
@@ -145,9 +144,19 @@
             android:name=".recycle.MyRecycleActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".recycle.MyListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".expand.ExpandRecyclerViewActivity"
+            android:label="@string/title_activity_expand_recycler_view"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

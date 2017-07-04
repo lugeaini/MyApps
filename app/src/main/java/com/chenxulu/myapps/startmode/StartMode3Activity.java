@@ -3,14 +3,13 @@ package com.chenxulu.myapps.startmode;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.chenxulu.library.activity.BaseLibraryAppCompatActivity;
+import com.chenxulu.library.activity.BaseLibraryActivity;
 import com.chenxulu.myapps.R;
 
-public class StartMode3Activity extends BaseLibraryAppCompatActivity {
+public class StartMode3Activity extends BaseLibraryActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

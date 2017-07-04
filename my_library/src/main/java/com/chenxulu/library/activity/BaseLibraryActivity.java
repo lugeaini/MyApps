@@ -1,15 +1,15 @@
 package com.chenxulu.library.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 /**
  * log life cycle
  */
-public class BaseLibraryActivity extends Activity {
+public class BaseLibraryActivity extends AppCompatActivity {
     private boolean lifecycle;
 
     @Override

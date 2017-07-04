@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.chenxulu.library.activity.BaseLibraryAppCompatActivity;
+import com.chenxulu.library.activity.BaseLibraryActivity;
 import com.chenxulu.myapps.R;
 
-public class StartMode2Activity extends BaseLibraryAppCompatActivity {
+public class StartMode2Activity extends BaseLibraryActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,4 +2,5 @@
     <string name="app_name">MyApps</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_start_mode3">StartMode3Activity</string>
+    <string name="title_activity_expand_recycler_view">ExpandRecyclerViewActivity</string>
 </resources>

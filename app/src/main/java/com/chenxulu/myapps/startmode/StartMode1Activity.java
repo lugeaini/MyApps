@@ -3,12 +3,11 @@ package com.chenxulu.myapps.startmode;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-import com.chenxulu.library.activity.BaseLibraryAppCompatActivity;
+import com.chenxulu.library.activity.BaseLibraryActivity;
 import com.chenxulu.myapps.R;
 
-public class StartMode1Activity extends BaseLibraryAppCompatActivity {
+public class StartMode1Activity extends BaseLibraryActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
