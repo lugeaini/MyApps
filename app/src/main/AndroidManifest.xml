@@ -144,20 +144,14 @@
             android:name=".recycle.MyRecycleActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".recycle.MyListActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".expand.ExpandRecyclerViewActivity"
-            android:label="@string/title_activity_expand_recycler_view"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".expand.recycler.ExpandRecyclerViewActivity"
+            android:label="@string/title_activity_expand_recycler_view">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
