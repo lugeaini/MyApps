@@ -150,8 +150,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".expand.recycler.ExpandRecyclerViewActivity"
-            android:label="@string/title_activity_expand_recycler_view">
+            android:name=".ScrollingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".fragment.MainFragmentActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
