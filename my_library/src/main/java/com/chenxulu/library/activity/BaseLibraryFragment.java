@@ -1,5 +1,6 @@
 package com.chenxulu.library.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public abstract class BaseLibraryFragment extends Fragment {
-    private boolean lifecycle;
-    protected View mView;
+    private boolean lifecycle = true;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        log("onAttach()");
+    }
 
     /**
      * called to do initial creation of the fragment.
@@ -27,25 +33,8 @@ public abstract class BaseLibraryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         log("onCreateView()");
-        if (mView == null) {
-            initView(inflater, container, savedInstanceState);
-        } else {
-            ViewGroup mGroup = (ViewGroup) mView.getParent();
-            if (mGroup != null) {
-                mGroup.removeView(mView);
-            }
-        }
-        return mView;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
-
-    /**
-     * 初始化布局，不使用onCreateView初始化
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     */
-    protected abstract void initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
     /**
      * tells the fragment that its activity has completed its own
@@ -75,9 +64,7 @@ public abstract class BaseLibraryFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        log(String.format("onResume(NativeHeapAllocatedSize:%d, NativeHeapFreeSize:%d)",
-                android.os.Debug.getNativeHeapAllocatedSize(),
-                android.os.Debug.getNativeHeapFreeSize()));
+        log(String.format("onResume(NativeHeapAllocatedSize:%d, NativeHeapFreeSize:%d)", android.os.Debug.getNativeHeapAllocatedSize(), android.os.Debug.getNativeHeapFreeSize()));
     }
 
     /**
@@ -162,7 +149,16 @@ public abstract class BaseLibraryFragment extends Fragment {
      */
     protected void log(String message) {
         if (lifecycle)
-            Log.d(getClass().getSimpleName(), message);
+            Log.d(getLogTag(), message);
+    }
+
+    /**
+     * log tag
+     *
+     * @return
+     */
+    protected String getLogTag() {
+        return getClass().getSimpleName();
     }
 
 }

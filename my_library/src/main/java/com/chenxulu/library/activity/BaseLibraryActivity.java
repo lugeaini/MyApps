@@ -10,7 +10,7 @@ import android.util.Log;
  * log life cycle
  */
 public class BaseLibraryActivity extends AppCompatActivity {
-    private boolean lifecycle;
+    private boolean lifecycle = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

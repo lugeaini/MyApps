@@ -6,7 +6,7 @@
     tools:context="com.chenxulu.myapps.fragment.ChatFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="ChatFragment"/>
