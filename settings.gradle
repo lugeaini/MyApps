@@ -1,2 +1,2 @@
-include ':my_datepicker', ':my_library'
+include ':my_library'
 include ':app'
