@@ -120,9 +120,9 @@ public class MainTabActivity extends AppCompatActivity {
                 case 3:
                     return "SECTION 4";
                 case 4:
+                default:
                     return "SECTION 5";
             }
-            return null;
         }
     }
 

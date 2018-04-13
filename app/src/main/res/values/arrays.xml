@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="image_array">
+        <item>
+            http://cdn.xnwimg.com/down/f:%7BA14268AA-6B50-1313-AF90-810E44B8A0AC%7D/%E5%8D%A0%E4%BD%8D%E5%9B%BE.png
+        </item>
+        <item>
+            http://cdn.xnwimg.com/down/f:%7BAED90211-B112-2480-63A4-1029432DD58E%7D/%E5%8D%A0%E4%BD%8D%E5%9B%BE%202.png
+        </item>
+        <item>
+            http://cdn.xnwimg.com/down/f:%7B1B530329-C48C-4926-C6FD-93F1E9C069D9%7D/%E5%8D%A0%E4%BD%8D%E5%9B%BE%203.png
+        </item>
+        <item>
+            http://cdn.xnwimg.com/down/f:%7B08D6FD00-63E8-261E-6BFE-AF585C327718%7D/%E5%8D%A0%E4%BD%8D%E5%9B%BE%204.png
+        </item>
+    </array>
+</resources>

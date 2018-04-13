@@ -20,11 +20,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <receiver android:name=".InstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".MainActivity"
             android:configChanges="locale|orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait">
+
         </activity>
         <activity
             android:name=".startmode.StartMode1Activity"
@@ -152,6 +163,11 @@
         <activity
             android:name=".ScrollingActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".WebActivity">
         </activity>
@@ -159,19 +175,24 @@
             android:name=".fragment.MainTabActivity"
             android:label="@string/title_activity_main_tab"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".animation.AnimationActivity01">
         </activity>
         <activity android:name=".DeviceActivity">
-
         </activity>
         <activity android:name=".ViewPagerActivity">
+
         </activity>
+        <activity
+            android:name=".fragment.MyTabActivity"
+            android:label="@string/title_activity_my_tab"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".fragment.MyFragmentsActivity">
+
+        </activity>
+
+
     </application>
 
 </manifest>
